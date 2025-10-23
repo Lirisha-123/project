@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  - var title = 'Login'
+  - var user = null
+  .row.justify-content-center
+    .col-md-6
+      .card
+        .card-header
+          h3.text-center Login to Mentor Bridge
+        .card-body
+          form(action='/login', method='POST')
+            .form-group
+              label(for='email') Email
+              input.form-control(type='email', id='email', name='email', required)
+            .form-group
+              label(for='password') Password
+              input.form-control(type='password', id='password', name='password', required)
+            button.btn.btn-primary.btn-block(type='submit') Login
+          .text-center.mt-3
+            a(href='/register') Don't have an account? Register

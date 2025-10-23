@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  .jumbotron.bg-primary.text-white
+    .container
+      h1.display-4 Welcome to Mentor Bridge
+      p.lead Bridge the gap between students and alumni through mentorship
+      hr.my-4
+      p Connect with experienced alumni mentors or find students to guide in your field of expertise.
+      if !user
+        a.btn.btn-light.btn-lg(href='/register', role='button') Get Started
+        a.btn.btn-outline-light.btn-lg.ml-2(href='/login', role='button') Login
+
+  .container
+    .row
+      .col-md-4
+        .card.mb-4
+          .card-body.text-center
+            h5.card-title For Students
+            p.card-text Find mentors who can guide you in your career journey and help you navigate challenges.
+            if !user
+              a.btn.btn-primary(href='/register') Join as Student
+      .col-md-4
+        .card.mb-4
+          .card-body.text-center
+            h5.card-title For Alumni
+            p.card-text Share your experience and knowledge by mentoring the next generation.
+            if !user
+              a.btn.btn-primary(href='/register') Join as Mentor
+      .col-md-4
+        .card.mb-4
+          .card-body.text-center
+            h5.card-title For Admins
+            p.card-text Manage the platform and ensure smooth connections between mentors and mentees.
+            if !user
+              a.btn.btn-primary(href='/register') Join as Admin
+
+    if user
+      .row.mt-5
+        .col-md-12
+          .card
+            .card-body
+              h5.card-title Welcome back, #{user.name}!
+              p.card-text You are logged in as a #{user.role}.
+              a.btn.btn-primary(href='/dashboard') Go to Dashboard

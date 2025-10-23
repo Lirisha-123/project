@@ -1,0 +1,80 @@
+extends layout
+
+block content
+  h2 Dashboard
+  p Welcome back, #{user.name}! You are logged in as a #{user.role}.
+
+  if user.role === 'mentee'
+    h3 Your Mentors
+    if matches.length > 0
+      .row
+        each match in matches
+          .col-md-4.mb-4
+            .card
+              .card-body
+                h5.card-title= match.mentor.name
+                p.card-text= match.mentor.bio
+                p.card-text
+                  strong Skills:
+                  = match.mentor.skills.join(', ')
+                p.card-text
+                  strong Experience:
+                  = match.mentor.experience + ' years'
+    else
+      p You don't have any mentors yet.
+
+    h3 Potential Mentors
+    if potentialMatches.length > 0
+      .row
+        each potential in potentialMatches
+          .col-md-4.mb-4
+            .card
+              .card-body
+                h5.card-title= potential.name
+                p.card-text= potential.bio
+                p.card-text
+                  strong Skills:
+                  = potential.skills.join(', ')
+                p.card-text
+                  strong Experience:
+                  = potential.experience + ' years'
+                form(action='/match/' + potential._id, method='POST', style='display: inline;')
+                  button.btn.btn-success(type='submit') Request Match
+    else
+      p No potential mentors found based on your interests.
+
+  else if user.role === 'mentor'
+    h3 Your Mentees
+    if matches.length > 0
+      .row
+        each match in matches
+          .col-md-4.mb-4
+            .card
+              .card-body
+                h5.card-title= match.mentee.name
+                p.card-text= match.mentee.bio
+                p.card-text
+                  strong Interests:
+                  = match.mentee.interests.join(', ')
+    else
+      p You don't have any mentees yet.
+
+    h3 Potential Mentees
+    if potentialMatches.length > 0
+      .row
+        each potential in potentialMatches
+          .col-md-4.mb-4
+            .card
+              .card-body
+                h5.card-title= potential.name
+                p.card-text= potential.bio
+                p.card-text
+                  strong Interests:
+                  = potential.interests.join(', ')
+                form(action='/match/' + potential._id, method='POST', style='display: inline;')
+                  button.btn.btn-success(type='submit') Request Match
+    else
+      p No potential mentees found based on your skills.
+
+  else if user.role === 'admin'
+    p Admin dashboard content will be shown here.

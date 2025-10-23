@@ -1,0 +1,55 @@
+extends layout
+
+block content
+  - var title = 'Register'
+  - var user = null
+  .row.justify-content-center
+    .col-md-8
+      .card
+        .card-header
+          h3.text-center Register for Mentor Bridge
+        .card-body
+          form(action='/register', method='POST')
+            .form-row
+              .form-group.col-md-6
+                label(for='name') Full Name
+                input.form-control(type='text', id='name', name='name', required)
+              .form-group.col-md-6
+                label(for='email') Email
+                input.form-control(type='email', id='email', name='email', required)
+            .form-row
+              .form-group.col-md-6
+                label(for='password') Password
+                input.form-control(type='password', id='password', name='password', required)
+              .form-group.col-md-6
+                label(for='role') Role
+                select.form-control(id='role', name='role', required)
+                  option(value='') Select Role
+                  option(value='mentee') Student (Mentee)
+                  option(value='mentor') Alumni (Mentor)
+                  option(value='admin') Admin
+            .form-group
+              label(for='skills') Skills (comma-separated)
+              input.form-control(type='text', id='skills', name='skills', placeholder='e.g., JavaScript, Python, React')
+            .form-group
+              label(for='interests') Interests (comma-separated)
+              input.form-control(type='text', id='interests', name='interests', placeholder='e.g., Web Development, Data Science, AI')
+            .form-group
+              label(for='bio') Bio
+              textarea.form-control(id='bio', name='bio', rows='3', placeholder='Tell us about yourself...')
+            .form-group#experience-group(style='display: none;')
+              label(for='experience') Years of Experience
+              input.form-control(type='number', id='experience', name='experience', min='0')
+            button.btn.btn-primary.btn-block(type='submit') Register
+          .text-center.mt-3
+            a(href='/login') Already have an account? Login
+
+  script.
+    document.getElementById('role').addEventListener('change', function() {
+      var experienceGroup = document.getElementById('experience-group');
+      if (this.value === 'mentor') {
+        experienceGroup.style.display = 'block';
+      } else {
+        experienceGroup.style.display = 'none';
+      }
+    });

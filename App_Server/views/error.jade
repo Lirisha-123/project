@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  - var title = 'Error'
+  - var user = null
+  h1 Error
+  h2= error.status
+  p= message
+  pre #{error.stack}

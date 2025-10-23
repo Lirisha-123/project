@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h2 Admin Dashboard
+
+  .row
+    .col-md-6
+      .card.mb-4
+        .card-header
+          h5 All Users
+        .card-body
+          p Total Users: #{allUsers.length}
+          ul.list-group.list-group-flush
+            each user in allUsers
+              li.list-group-item
+                strong= user.name
+                br
+                small= user.email + ' (' + user.role + ')'
+
+    .col-md-6
+      .card.mb-4
+        .card-header
+          h5 All Matches
+        .card-body
+          p Total Matches: #{allMatches.length}
+          ul.list-group.list-group-flush
+            each match in allMatches
+              li.list-group-item
+                = match.mentor.name + ' ↔ ' + match.mentee.name
+                br
+                small= 'Matched on: ' + (match.matchedSkills ? match.matchedSkills.join(', ') : 'N/A')

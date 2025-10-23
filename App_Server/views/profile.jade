@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  .row.justify-content-center
+    .col-md-8
+      .card
+        .card-header
+          h3 Edit Profile
+        .card-body
+          form(action='/profile', method='POST')
+            .form-row
+              .form-group.col-md-6
+                label(for='name') Full Name
+                input.form-control(type='text', id='name', name='name', value=user.name, required)
+              .form-group.col-md-6
+                label(for='email') Email
+                input.form-control(type='email', id='email', name='email', value=user.email, required)
+            .form-group
+              label(for='skills') Skills (comma-separated)
+              input.form-control(type='text', id='skills', name='skills', value=user.skills.join(', '), placeholder='e.g., JavaScript, Python, React')
+            .form-group
+              label(for='interests') Interests (comma-separated)
+              input.form-control(type='text', id='interests', name='interests', value=user.interests.join(', '), placeholder='e.g., Web Development, Data Science, AI')
+            .form-group
+              label(for='bio') Bio
+              textarea.form-control(id='bio', name='bio', rows='3')= user.bio
+            if user.role === 'mentor'
+              .form-group
+                label(for='experience') Years of Experience
+                input.form-control(type='number', id='experience', name='experience', value=user.experience, min='0')
+            .form-group
+              label(for='role') Role
+              input.form-control(type='text', id='role', name='role', value=user.role, readonly)
+            button.btn.btn-primary.btn-block(type='submit') Update Profile
